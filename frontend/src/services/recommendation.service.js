@@ -83,5 +83,7 @@ const getRecommendations = (
   return sortedProducts.sort((a, b) => b.score - a.score);
 };
 
+export { getProductsWithScoreByMatch, getProductsByScore, getRelevanceByScore };
+
 const recommendationService = { getRecommendations };
 export default recommendationService;
