@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo } from 'react';
 import { Preferences, Features, RecommendationType } from './Fields';
 import { SubmitButton } from './SubmitButton';
 import useProducts from '../../hooks/useProducts';
@@ -7,7 +7,6 @@ import useRecommendations from '../../hooks/useRecommendations';
 
 function Form({ onRecommendationsChange }) {
   const { preferences, features, products } = useProducts();
-  const [error, setError] = useState(null);
   const { formData, handleChange } = useForm({
     selectedPreferences: [],
     selectedFeatures: [],
@@ -16,19 +15,12 @@ function Form({ onRecommendationsChange }) {
 
   const { getRecommendations } = useRecommendations(products);
 
+  const isValidForm = useMemo(() => {
+    return formData.selectedRecommendationType && (formData.selectedPreferences.length > 0 || formData.selectedFeatures.length > 0);
+  }, [formData]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError(null);
-    
-    if (!formData.selectedRecommendationType) {
-      setError('Por favor, selecione o tipo de recomendação.');
-      return;
-    }
-
-    if (formData.selectedPreferences.length === 0 && formData.selectedFeatures.length === 0) {
-      setError('Por favor, selecione pelo menos uma preferência ou funcionalidade.');
-      return;
-    }
 
     const dataRecommendations = getRecommendations(formData);
     
@@ -57,8 +49,7 @@ function Form({ onRecommendationsChange }) {
           handleChange('selectedRecommendationType', selected)
         }
       />
-      {error && <p className="mb-2 text-red-500">{error}</p>}
-      <SubmitButton text="Obter recomendação" />
+      <SubmitButton disabled={!isValidForm} text="Obter recomendação" />
     </form>
   );
 }
