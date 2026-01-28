@@ -20,16 +20,16 @@ function Preferences({
   };
 
   return (
-    <div className="mb-4">
-      <h2 className="text-lg font-bold mb-2">Preferências:</h2>
+    <div className="mb-6">
+      <h2 className="text-lg font-semibold mb-3 text-rd-gray-800">Preferências:</h2>
       <ul>
         {preferences.map((preference, index) => (
-          <li key={index} className="mb-2">
+          <li key={index} className="mb-3">
             <Checkbox
               value={preference}
               checked={currentPreferences.includes(preference)}
               onChange={() => handlePreferenceChange(preference)}
-              className="text-blue-500"
+              className="text-rd-blue-600 hover:text-rd-blue-700"
             >
               {preference}
             </Checkbox>

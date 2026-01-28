@@ -1,6 +1,18 @@
 
 function SubmitButton({ text, disabled }) {
-  return <button type="submit" className={`bg-blue-500 text-white font-bold py-2 px-4 rounded ${disabled ? 'cursor-not-allowed bg-blue-200' : 'hover:bg-blue-700 bg-blue-500'}`} disabled={disabled}>{text}</button>;
+  return (
+    <button 
+      type="submit" 
+      className={`w-full font-semibold py-3 px-6 rounded-lg transition-all duration-200 ${
+        disabled 
+          ? 'cursor-not-allowed bg-rd-gray-200 text-rd-gray-500' 
+          : 'bg-rd-blue-500 hover:bg-rd-blue-600 text-white shadow-md hover:shadow-lg transform hover:-translate-y-0.5'
+      }`} 
+      disabled={disabled}
+    >
+      {text}
+    </button>
+  );
 }
 
 export default SubmitButton;
